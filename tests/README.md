@@ -1,0 +1,1 @@
+Run tests from the repository root with `python -m pytest -q`.

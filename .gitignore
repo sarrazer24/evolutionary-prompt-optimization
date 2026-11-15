@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model weights and caches
+.cache/
+.cache_huggingface/
+huggingface/
+*.safetensors
+pytorch_model*.bin
+
+# Data and generated artifacts
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+experiments/logs/*
+experiments/results/*
+!experiments/logs/.gitkeep
+!experiments/results/.gitkeep
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

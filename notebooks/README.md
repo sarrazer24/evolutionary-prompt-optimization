@@ -1,0 +1,1 @@
+Create one notebook per member. Keep notebooks for exploration and demonstrations; put reusable functions in `src/`. On Kaggle, clone the GitHub repository or attach it as a Kaggle input, then run from the repository root.
