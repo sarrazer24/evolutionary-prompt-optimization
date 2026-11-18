@@ -1,0 +1,73 @@
+{
+  "source": "nyu-mll/glue:sst2",
+  "n_train_rows": 67349,
+  "label_counts": {
+    "negative": 29780,
+    "positive": 37569
+  },
+  "missing_values": {
+    "text": 0,
+    "label": 0
+  },
+  "duplicates": {
+    "rows_in_duplicated_texts": 742,
+    "distinct_duplicated_texts": 371,
+    "duplicated_texts_with_conflicting_labels": 5
+  },
+  "words_per_text": {
+    "count": 67349.0,
+    "mean": 9.41,
+    "std": 8.074,
+    "min": 1.0,
+    "25%": 3.0,
+    "50%": 7.0,
+    "75%": 13.0,
+    "max": 52.0
+  },
+  "split_info": {
+    "source": "nyu-mll/glue:sst2",
+    "seed": 42,
+    "selected_candidate_seed": 42,
+    "split_selection_score": 7.308679846080949e-06,
+    "opt_class_ratio_difference": 1.6415724910512353e-06,
+    "val_class_ratio_difference": 6.5661680772599595e-06,
+    "requested_opt_fraction": 0.8,
+    "actual_opt_fraction": 0.799997,
+    "actual_val_fraction": 0.200003,
+    "label_encoding": {
+      "0": "negative",
+      "1": "positive"
+    },
+    "cleaning": {
+      "n_original": 67349,
+      "n_removed_conflicting_rows": 10,
+      "n_conflicting_unique_texts": 5,
+      "n_after_cleaning": 67339,
+      "n_ordinary_duplicate_rows_kept": 366
+    },
+    "n_total": 67339,
+    "n_total_after_cleaning": 67339,
+    "opt": {
+      "n": 53871,
+      "n_negative": 23820,
+      "n_positive": 30051,
+      "positive_ratio": 0.557833
+    },
+    "val": {
+      "n": 13468,
+      "n_negative": 5955,
+      "n_positive": 7513,
+      "positive_ratio": 0.557841
+    },
+    "n_normalized_texts_shared_between_opt_and_val": 0,
+    "checks": {
+      "no_row_overlap_between_opt_and_val": true,
+      "no_text_overlap_between_opt_and_val": true,
+      "labels_are_0_or_1": true,
+      "opt_is_reasonably_stratified": true,
+      "val_is_reasonably_stratified": true,
+      "opt_plus_val_cover_every_cleaned_train_row": true,
+      "reproducible_with_same_seed": true
+    }
+  }
+}
