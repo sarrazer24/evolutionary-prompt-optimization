@@ -10,7 +10,7 @@ import logging
 import random
 from typing import Optional
 
-from .validation import check_prompt, clean_generated_prompt, normalize_prompt, similarity
+from .validation import normalize_prompt, prepare_candidate, similarity
 
 log = logging.getLogger(__name__)
 
@@ -61,23 +61,21 @@ PROMPT B:
 
 Output only the new prompt."""
 
-MUTATION_MAX_SIMILARITY = 0.90   # child at least this similar to its parent = superficial edit
+MUTATION_MAX_SIMILARITY = 0.85   # child at least this similar to its parent = superficial edit
 CROSSOVER_MAX_SIMILARITY = 0.95  # child at least this similar to a parent = just a copy
 
 
 def _attempt(llm, user_prompt: str, max_new_tokens: int) -> Optional[str]:
-    """One sampled generation, cleaned and validated; None if it failed for any reason."""
+    """One sampled generation, cleaned, repaired and validated; None if it failed."""
     try:
         raw = llm.generate_text(OPERATOR_SYSTEM, user_prompt, max_new_tokens=max_new_tokens,
                                 sample=True)
     except Exception as exc:  # noqa: BLE001
         log.warning("Operator generation failed: %s", exc)
         return None
-    candidate = clean_generated_prompt(raw)
-    problem = check_prompt(candidate)
+    candidate, problem = prepare_candidate(raw)
     if problem:
         log.info("Rejected operator output (%s)", problem)
-        return None
     return candidate
 
 

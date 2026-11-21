@@ -2,15 +2,16 @@
 
 One LLM call per new prompt, each with a DIFFERENT style requirement, so the population is
 diverse by construction. Seeds (e.g. the manual baselines) come first. Candidates are
-cleaned, validated and de-duplicated (exact and near-duplicate).
+cleaned, repaired, validated and de-duplicated (exact and near-duplicate).
 """
 from __future__ import annotations
 
 import logging
 import random
+from collections import Counter
 from typing import Optional
 
-from .validation import check_prompt, clean_generated_prompt, normalize_prompt, similarity
+from .validation import check_prompt, normalize_prompt, prepare_candidate, similarity
 
 log = logging.getLogger(__name__)
 
@@ -78,6 +79,7 @@ def generate_initial_prompts(llm, n: int, seed_prompts=None, *,
     rng.shuffle(hints)
     budget = max_attempts_per_prompt * (n - len(population))
     attempts = 0
+    rejected: Counter = Counter()
     while len(population) < n and attempts < budget:
         hint = hints[attempts % len(hints)]      # a different style on every attempt
         attempts += 1
@@ -87,11 +89,12 @@ def generate_initial_prompts(llm, n: int, seed_prompts=None, *,
         except Exception as exc:  # noqa: BLE001 - a failed call just costs one attempt
             log.warning("Prompt generation call failed: %s", exc)
             continue
-        candidate = clean_generated_prompt(raw)
-        problem = check_prompt(candidate)
+        candidate, problem = prepare_candidate(raw)
         if problem:
+            rejected[problem.split(" (")[0]] += 1
             log.info("Rejected generated prompt (%s)", problem)
         elif _is_duplicate(candidate, population):
+            rejected["near-duplicate of an existing prompt"] += 1
             log.info("Rejected generated prompt (duplicate)")
         else:
             population.append(candidate)
@@ -99,5 +102,5 @@ def generate_initial_prompts(llm, n: int, seed_prompts=None, *,
     if len(population) < n:
         raise RuntimeError(
             f"Requested {n} unique prompts but obtained {len(population)} after {attempts} "
-            "attempts. Retry, add seed prompts, or lower n.")
+            f"attempts. Rejections: {dict(rejected)}. Retry, add seed prompts, or lower n.")
     return population

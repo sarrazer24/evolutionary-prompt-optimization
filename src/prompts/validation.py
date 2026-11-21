@@ -14,10 +14,16 @@ MAX_CHARS = 800
 # The classifier must be told to give ONE label and nothing else, because Member 1's strict
 # parser marks every other answer as invalid.
 _SINGLE_LABEL = re.compile(
-    r"\b(exactly one|one word|single word|one label|single label|only|nothing else|just one)\b", re.I)
+    r"\b(exactly one|one word|single word|one label|single label|nothing else|just one|"
+    r"only (?:the |that |one |a )?(?:label|word|answer|response))\b", re.I)
+_NEEDS_RULE = "must tell the classifier to answer with exactly one word/label"
+# The output contract is NOT something the GA should evolve: it is part of the task definition
+# (Member 1's strict parser needs a bare label). If a generated prompt forgot it, we append it.
+OUTPUT_RULE = "Answer with exactly one word: positive or negative."
 # Unfilled placeholders: the review is supplied separately as the user message.
 _PLACEHOLDER = re.compile(r"\{[^}]*\}|\[(?:review|text|input|sentence)[^\]]*\]|<(?:review|text|input)[^>]*>", re.I)
 _CHATTER = re.compile(r"^(here|sure|certainly|okay|ok|of course)\b.*:\s*$", re.I)
+_META_LINE = re.compile(r"^.*\bprompts?\b.*:\s*$", re.I)   # e.g. 'Combine the two system prompts into one new prompt:'
 _TRAILING_NOTE = re.compile(r"^\W*(note|notes|explanation|changes|this prompt|i (changed|made|added|kept)|"
                             r"in this)\b", re.I)
 _LEADING_LABEL = re.compile(
@@ -37,7 +43,7 @@ def clean_generated_prompt(raw) -> str:
     if fence:
         text = fence.group(1).strip()
     lines = text.splitlines()
-    if len(lines) > 1 and _CHATTER.match(lines[0].strip()):
+    if len(lines) > 1 and (_CHATTER.match(lines[0].strip()) or _META_LINE.match(lines[0].strip())):
         text = "\n".join(lines[1:]).strip()
     kept = []
     for i, para in enumerate(re.split(r"\n\s*\n", text)):
@@ -63,7 +69,7 @@ def check_prompt(prompt) -> str | None:
     if not re.search(r"\bpositive\b", prompt, re.I) or not re.search(r"\bnegative\b", prompt, re.I):
         return "must mention both labels: positive and negative"
     if not _SINGLE_LABEL.search(prompt):
-        return "must tell the classifier to answer with exactly one word/label"
+        return _NEEDS_RULE
     if _PLACEHOLDER.search(prompt):
         return "contains a placeholder; the review is supplied separately"
     return None
@@ -72,3 +78,20 @@ def check_prompt(prompt) -> str | None:
 def similarity(a: str, b: str) -> float:
     """Word-level similarity in [0, 1] (1 = identical ignoring case and whitespace)."""
     return difflib.SequenceMatcher(None, a.lower().split(), b.lower().split()).ratio()
+
+
+def repair_prompt(prompt) -> str:
+    """Append the fixed output rule if (and only if) that is the prompt's only defect."""
+    p = normalize_prompt(prompt)
+    if check_prompt(p) == _NEEDS_RULE:
+        if not p.endswith((".", "!", "?", ":")):
+            p += "."
+        p = f"{p} {OUTPUT_RULE}"
+    return p
+
+
+def prepare_candidate(raw) -> tuple[str | None, str | None]:
+    """raw LLM text -> (valid single-line prompt, None) or (None, reason it was rejected)."""
+    candidate = repair_prompt(clean_generated_prompt(raw))
+    problem = check_prompt(candidate)
+    return (None, problem) if problem else (candidate, None)
