@@ -20,6 +20,12 @@ _NEEDS_RULE = "must tell the classifier to answer with exactly one word/label"
 # The output contract is NOT something the GA should evolve: it is part of the task definition
 # (Member 1's strict parser needs a bare label). If a generated prompt forgot it, we append it.
 OUTPUT_RULE = "Answer with exactly one word: positive or negative."
+# The generator sometimes echoes the instructions it was given ("merge them into a new prompt").
+_META_LEAK = re.compile(
+    r"\bprompt\s+(?:a|b|1|2)\b|\b(?:new|combined|merged|child|parent) prompts?\b|"
+    r"\bthe two (?:system )?prompts?\b|\b(?:merge|combine) them\b|\bdistinctive idea\b", re.I)
+# A weaker output sentence the repair step should REPLACE instead of duplicating.
+_OUTPUT_SENTENCE = re.compile(r"^\W*(?:answer|respond|reply|output|return)\b.*\b(?:positive|negative)\b", re.I)
 # Unfilled placeholders: the review is supplied separately as the user message.
 _PLACEHOLDER = re.compile(r"\{[^}]*\}|\[(?:review|text|input|sentence)[^\]]*\]|<(?:review|text|input)[^>]*>", re.I)
 _CHATTER = re.compile(r"^(here|sure|certainly|okay|ok|of course)\b.*:\s*$", re.I)
@@ -72,6 +78,8 @@ def check_prompt(prompt) -> str | None:
         return _NEEDS_RULE
     if _PLACEHOLDER.search(prompt):
         return "contains a placeholder; the review is supplied separately"
+    if _META_LEAK.search(prompt):
+        return "echoes the prompt-writing instructions (PROMPT A/B, new prompt, merge them)"
     return None
 
 
@@ -81,13 +89,21 @@ def similarity(a: str, b: str) -> float:
 
 
 def repair_prompt(prompt) -> str:
-    """Append the fixed output rule if (and only if) that is the prompt's only defect."""
+    """Append the fixed output rule if (and only if) that is the prompt's only defect.
+
+    A weaker closing sentence such as 'Answer with positive or negative.' is replaced rather
+    than duplicated, and a dangling colon is turned into a full stop.
+    """
     p = normalize_prompt(prompt)
-    if check_prompt(p) == _NEEDS_RULE:
-        if not p.endswith((".", "!", "?", ":")):
-            p += "."
-        p = f"{p} {OUTPUT_RULE}"
-    return p
+    if check_prompt(p) != _NEEDS_RULE:
+        return p
+    sentences = re.split(r"(?<=[.!?])\s+", p)
+    if len(sentences) > 1 and _OUTPUT_SENTENCE.match(sentences[-1]):
+        sentences = sentences[:-1]
+    p = " ".join(sentences).rstrip(" :;,")
+    if not p.endswith((".", "!", "?")):
+        p += "."
+    return f"{p} {OUTPUT_RULE}"
 
 
 def prepare_candidate(raw) -> tuple[str | None, str | None]:
