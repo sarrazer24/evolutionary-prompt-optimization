@@ -1,8 +1,9 @@
 # Member 2 -> Member 3 handoff: LLM integration and prompt engineering
 
 Status: **done, tested on CPU (mock) and on a Kaggle T4 (real model).**
-Everything you need to build the Genetic Algorithm is below. You never need to edit Member 2's
-or Member 1's code.
+Member 2 delivers the LLM interface, the prompt templates and the genetic *operators* (initial prompts,
+mutation, crossover). The Genetic Algorithm itself (population, selection, elitism, generations, logging)
+is Member 3's work and is not included here. You never need to edit Member 2's or Member 1's code.
 
 ## 1. Files
 
@@ -15,7 +16,7 @@ or Member 1's code.
 | `src/prompts/initial_population.py` | `generate_initial_prompts` |
 | `src/prompts/operators.py` | `mutate_prompt`, `crossover_prompts` |
 | `src/prompts/validation.py` | prompt cleaning, validation, similarity |
-| `scripts/ga_integration_demo.py` | runnable demo of a tiny GA loop (NOT the real GA; read it, copy ideas) |
+| `scripts/member2_demo.py` | runnable demo of Member 2's components on sample reviews (no evolutionary search) |
 | `tests/test_llm_interface.py`, `tests/test_prompts*.py`, `tests/test_prompt_leaks_and_repair.py`, `tests/test_integration_contract.py` | all CPU-only |
 
 ## 2. Public API (exact signatures)
@@ -31,7 +32,7 @@ llm.predict_batch(prompt: str, texts) -> list[str]        # "positive" | "negati
 llm.predict_sentiment(prompt: str, text: str) -> str      # same labels, one review
 llm.generate_text(system_prompt, user_prompt, max_new_tokens=None, *, sample=False,
                   temperature=None, top_p=None) -> str    # greedy unless sample=True
-llm.set_seed(seed: int) -> None               # seeds SAMPLING (prompt writing); call once at GA start
+llm.set_seed(seed: int) -> None               # seeds SAMPLING (prompt writing); call once at the start of a run
 llm.info() -> dict                            # model, GPU, library versions: log it with every run
 llm.stats: dict                               # classified_texts, generate_calls, failed_generations, ...
 
@@ -62,7 +63,7 @@ evaluate_prompt(prompt, examples, labels, predict_fn, *, model_id, inference_con
 * Every prompt returned by Member 2 code is **single-line** (whitespace normalised), 30-800 characters,
   mentions both `positive` and `negative`, and tells the model to answer with exactly one word.
   The fixed output rule `Answer with exactly one word: positive or negative.` is part of the task
-  definition, so it is appended automatically when a generated prompt forgot it: **the GA evolves the
+  definition, so it is appended automatically when a generated prompt forgot it: **the operators change the
   instruction, not the output contract.**
 * **Classification is deterministic** (greedy, same settings for all prompts). We checked that batch sizes
   8, 32 and 64 give identical outputs, so batch size does not need to be in any cache key.
@@ -70,16 +71,15 @@ evaluate_prompt(prompt, examples, labels, predict_fn, *, model_id, inference_con
 * **Failures:**
   * `mutate_prompt` / `crossover_prompts` never raise because of a bad generation. After `max_attempts`
     they return the parent **unchanged** (`parent` for mutation, `parent1` for crossover).
-    **Detect it with `child == parent` (or `child in (parent1, parent2)`) and just skip that child.**
+    You can detect it with `child == parent` (or `child in (parent1, parent2)`).
   * `generate_initial_prompts` raises `ValueError` (bad `n` or an invalid seed) or `RuntimeError`
     (could not make `n` unique prompts; the message lists the rejection reasons). It is a one-time setup step.
   * `predict_raw_batch` returns `None` for one failed generation (Member 1's cache never stores it, so it is
     retried and counted invalid) and raises `RuntimeError` only if EVERY generation failed.
 * **Caching:** `evaluate_prompt(..., cache=cache)` sends only unseen (prompt, review) pairs to the model.
-  Keep the same `PredictionCache` for the whole run (give it a path to survive restarts), and also keep your
-  own `{prompt: fitness}` dict so elites are never re-scored.
+  Use one `PredictionCache` for the whole run (give it a path to survive restarts).
 
-## 4. Minimal integration example (runs on CPU; tested)
+## 4. Minimal example of the calls (runs on CPU; tested)
 
 ```python
 import random
@@ -105,24 +105,26 @@ def fitness(prompt: str) -> float:
 
 population = generate_initial_prompts(llm, 10, seed_prompts=get_baseline_prompt_texts(), rng=rng)
 parent_a, parent_b = population[0], population[1]
-child_1 = mutate_prompt(llm, parent_a, rng=rng)                    # == parent_a  -> operator fell back, skip it
-child_2 = crossover_prompts(llm, parent_a, parent_b)               # == parent_a  -> operator fell back, skip it
+child_1 = mutate_prompt(llm, parent_a, rng=rng)                    # == parent_a  -> operator fell back
+child_2 = crossover_prompts(llm, parent_a, parent_b)               # == parent_a  -> operator fell back
 ```
 
-A complete tiny loop (tournament selection, elitism, de-duplication, validation re-ranking) is in
-`scripts/ga_integration_demo.py`:
+How the pieces are used in the real GA (calling `fitness`, choosing parents, handling a fallback child,
+generations, elitism) is Member 3's design; the snippet above only shows that the calls fit together.
+
+A runnable demo of Member 2's own components on sample reviews:
 
 ```powershell
-python -m scripts.ga_integration_demo            # Windows or Kaggle, CPU, MockLLM, ~1 second
-python -m scripts.ga_integration_demo --real     # Kaggle GPU only, real model
+python -m scripts.member2_demo            # Windows or Kaggle, CPU, MockLLM, a few seconds
+python -m scripts.member2_demo --real     # Kaggle GPU only, real model
 ```
 
-## 5. Data protocol (do not deviate)
+## 5. Data protocol (defined by Member 1)
 
 | Split | Size | Use |
 |---|---|---|
 | `opt` (80% of GLUE train) | 53,871 | GA fitness, via ONE fixed `stratified_sample(splits.opt, N, seed=42)`, the same for every candidate |
-| `val` (20% of GLUE train) | 13,468 | re-rank the best few prompts after evolution, choose the final prompt |
+| `val` (20% of GLUE train) | 13,468 | choosing among the best prompts after evolution |
 | test (official GLUE validation) | 872 | the single final prompt, **once**, at the very end: `load_final_test(confirm=True)` |
 
 Never load the test set during evolution. Use the same `llm` (same model, same settings) for every
@@ -141,25 +143,24 @@ prompt that will be compared, manual or evolved.
 | baseline_expert | 0.894 | 9 |
 | baseline_negation | 0.877 | 1 |
 
-* Speed: about 62-95 reviews/second; scoring one prompt on 1000 reviews takes 11-27 s; GPU memory 2.9-3.4 GiB.
+* Speed: about 62-95 reviews/second; GPU memory 2.9-3.4 GiB.
 * Writing one prompt (mutation, crossover or initial) is one short generation: negligible.
-* Budget example: population 12, 10 generations, 2 elites -> at most 12 + 10x10 = 112 prompt evaluations,
-  about 30 minutes at N=1000 (less with the cache). Re-ranking one prompt on the full `val` split takes about
-  3.5 minutes, so re-rank only the top 3-5.
+* Cost per prompt: about 11-27 s on 1000 reviews; about 3.5 minutes on the full `val` split (13,468 reviews).
+  Identical (prompt, review) pairs are free once cached, so a prompt that is evaluated twice costs nothing the second time.
 * Model-written prompts scored 0.868-0.943 on the same sample, i.e. **not systematically better than the
-  baselines**; the GA's selection has to create any gain.
+  baselines**.
 
 ## 7. Known limitations and decisions
 
 1. **Fitness is noisy.** On 1000 reviews at ~92% accuracy one standard error is ~0.8 points. Differences below
    ~1.5 points between prompts are not reliable, and the best of many noisy scores is optimistic (winner's curse).
-   Hence the validation re-ranking. Consider a larger fitness sample (1500-2000) if time allows.
-2. **Small headroom.** The best baseline is already ~93.6%. "No significant improvement" is a legitimate result;
-   Member 4 should use a paired significance test on the final test set.
+   A larger sample (1500-2000 reviews) reduces the noise at proportionally higher cost.
+2. **Small headroom.** The best baseline is already ~93.6%, so improvements may be small and "no significant
+   improvement" is a possible outcome; a paired significance test is advisable when comparing prompts.
 3. **Invalid answers.** Prompts that mention "mixed" or "neutral" can make the model answer `mixed`, `neutral`
    or `critical`, which Member 1's strict parser scores as wrong. Fitness already penalises this.
 4. **Operator quality is uneven.** The classifier and the prompt writer are the same 1.5B model. Children can be
-   semantically poor (e.g. one mutation said "treat sarcastic statements as positive"). Selection removes them.
+   semantically poor (e.g. one mutation said "treat sarcastic statements as positive").
    Mutation children must differ from the parent (word similarity < 0.85) so superficial paraphrases are rejected.
 5. **Reproducibility.** `llm.set_seed(seed)` seeds sampling, but GPU generation is not guaranteed to be bit-identical
    across hardware. `resolved_revision` is `None` under transformers 5: pin the model with
@@ -169,13 +170,12 @@ prompt that will be compared, manual or evolved.
    cache file in `/kaggle/working/outputs` and download it or save it as a Kaggle dataset between sessions.
 7. `MockLLM` numbers are synthetic. Use it for development and tests only; never report them.
 
-## 8. What Member 3 can do right now
+## 8. What Member 3 can start right now
 
-Everything. Build `src/genetic_algorithm/` (population, selection, elitism, stopping criteria, loop) against
-`MockLLM` on your own computer; switch to `LLMInterface` on Kaggle when ready. Suggested starting values
-(yours to decide): population 12, 10 generations, 2 elites, tournament size 3, crossover probability 0.5,
-fixed fitness sample N=1000, stop early after 3 generations without improvement. Log every evaluated prompt
-(prompt, fitness, generation, parents, operator used) as JSON lines so Member 4 can analyse the runs.
+The interfaces above are stable, so the GA can be developed against `MockLLM` on any computer (no GPU)
+and switched to `LLMInterface` on Kaggle when ready. Population representation, selection, elitism,
+generation management, stopping criteria, saving the best prompt per generation and the optimisation logs are
+all Member 3's design. Member 2 can adjust an operator if the GA needs a different behaviour; ask.
 
 Kaggle recipe (GPU on, Internet on):
 
@@ -197,5 +197,5 @@ print(llm.info())
 
 ```powershell
 python -m pytest -q                         # Windows or Kaggle, CPU only, no model needed
-python -m scripts.ga_integration_demo       # runs a whole mini GA with the mock in about a second
+python -m scripts.member2_demo              # shows the Member 2 components with the mock in a few seconds
 ```
