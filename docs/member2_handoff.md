@@ -162,10 +162,11 @@ prompt that will be compared, manual or evolved.
 4. **Operator quality is uneven.** The classifier and the prompt writer are the same 1.5B model. Children can be
    semantically poor (e.g. one mutation said "treat sarcastic statements as positive").
    Mutation children must differ from the parent (word similarity < 0.85) so superficial paraphrases are rejected.
-5. **Reproducibility.** `llm.set_seed(seed)` seeds sampling, but GPU generation is not guaranteed to be bit-identical
-   across hardware. `resolved_revision` is `None` under transformers 5: pin the model with
-   `ModelConfig(revision="<commit sha>")` (the sha is printed by `huggingface_hub.model_info(model_id).sha`);
-   it then becomes part of `llm.model_id` and of the cache key.
+5. **Reproducibility.** The default model is pinned to an exact Hugging Face commit
+   (`DEFAULT_REVISION` in `src/llm/config.py`), and the commit is part of `llm.model_id` and therefore of the
+   cache key. `llm.set_seed(seed)` seeds sampling, but GPU generation is not guaranteed to be bit-identical across
+   hardware. (`llm.info()["resolved_revision"]` shows `null` under transformers 5; use `requested_revision`.)
+   The choice of model is documented in `docs/model_selection.md`.
 6. **One GPU used.** Kaggle gives two T4s; the code uses `cuda:0` only. Kaggle sessions are limited: keep the
    cache file in `/kaggle/working/outputs` and download it or save it as a Kaggle dataset between sessions.
 7. `MockLLM` numbers are synthetic. Use it for development and tests only; never report them.
