@@ -1,80 +1,103 @@
-"""Generate diverse initial candidate instructions using an LLM adapter."""
+"""Initial population generation (Member 2).
+
+One LLM call per new prompt, each with a DIFFERENT style requirement, so the population is
+diverse by construction. Seeds (e.g. the manual baselines) come first. Candidates are
+cleaned, validated and de-duplicated (exact and near-duplicate).
+"""
 from __future__ import annotations
 
+import logging
+import random
+from typing import Optional
+
+from .validation import check_prompt, clean_generated_prompt, normalize_prompt, similarity
+
+log = logging.getLogger(__name__)
+
 GENERATOR_SYSTEM = (
-    "You are an expert prompt engineer. Generate clear, distinct system "
-    "instructions for binary sentiment classification."
+    "You are an expert prompt engineer. You write system prompts for a binary sentiment "
+    "classifier. You output only the finished prompt text, with no commentary."
 )
 
-GENERATOR_USER_TEMPLATE = """
-Create {n} diverse candidate SYSTEM PROMPTS for classifying movie-review
-sentiment as either positive or negative.
+STYLE_HINTS = [
+    "adopt the role of an expert film critic",
+    "list a few concrete cues to look for, such as praise or complaint words, tone and intensity",
+    "tell the classifier to handle negation, sarcasm and irony carefully",
+    "tell the classifier to weigh mixed opinions and pick the dominant sentiment",
+    "be extremely concise: one or two short sentences",
+    "frame the task as deciding whether the writer would recommend the movie",
+    "frame the task as deciding favorable versus unfavorable, then map to positive or negative",
+    "mention that the text may be a short phrase or sentence fragment from a movie review",
+    "use a formal, rule-based style with numbered rules",
+    "address the classifier as a strict annotation tool that must follow the label format exactly",
+]
 
-Each candidate must:
-- Instruct the classifier to determine the overall sentiment of a review.
-- Require exactly one output label: positive or negative.
-- Require no explanation or extra text in the classification output.
-- Be a complete system instruction.
-- Not include a specific review or its answer.
+GENERATOR_USER_TEMPLATE = """Write ONE system prompt for a classifier that labels a movie-review text as positive or negative.
 
-Avoid near-duplicates. Vary the instruction strategy, not the task.
+Style requirement: {hint}.
 
-Return only a numbered list, one prompt per item.
-"""
+Rules:
+- The classifier must decide whether the text is positive or negative.
+- The prompt must tell the classifier to answer with exactly one word: positive or negative, and nothing else.
+- Do not include any example review and do not use placeholders such as [review].
 
+Output only the prompt."""
 
-def _extract_numbered_items(text: str) -> list[str]:
-    """Conservative parser for numbered or bullet-list model output."""
-    items = []
-    current = []
-    for line in (text or "").splitlines():
-        stripped = line.strip()
-        if not stripped:
-            continue
-        import re
-        match = re.match(r"^(?:\d+[\).\:]|[-*])\s*(.*)$", stripped)
-        if match:
-            if current:
-                items.append(" ".join(current).strip())
-            current = [match.group(1).strip()] if match.group(1).strip() else []
-        elif current:
-            current.append(stripped)
-    if current:
-        items.append(" ".join(current).strip())
-    return [x for x in items if x]
+NEAR_DUPLICATE = 0.90  # word-level similarity at or above this counts as a duplicate
 
 
-def generate_initial_prompts(llm, n: int, seed_prompts=None) -> list[str]:
-    """Generate prompts; `llm` must expose generate_text(system_prompt,user_prompt)."""
+def _is_duplicate(candidate: str, existing: list[str]) -> bool:
+    return any(similarity(candidate, e) >= NEAR_DUPLICATE for e in existing)
+
+
+def generate_initial_prompts(llm, n: int, seed_prompts=None, *,
+                             rng: Optional[random.Random] = None,
+                             max_attempts_per_prompt: int = 5) -> list[str]:
+    """Return exactly ``n`` unique, valid prompts (seeds first, then LLM-generated).
+
+    ``llm`` must provide ``generate_text(system, user, max_new_tokens=..., sample=True)``.
+    Raises ValueError for n < 1 or an invalid seed, and RuntimeError if ``n`` unique prompts
+    cannot be produced (this is a one-time setup step, so it fails loudly).
+    """
     if n < 1:
         raise ValueError("n must be at least 1.")
+    rng = rng or random.Random()
 
-    seeds = list(seed_prompts or [])
-    request_n = max(0, n - len(seeds))
-    generated = []
+    population: list[str] = []
+    for seed in (seed_prompts or []):
+        clean = normalize_prompt(seed)
+        problem = check_prompt(clean)
+        if problem:
+            raise ValueError(f"Invalid seed prompt ({problem}): {clean[:80]!r}")
+        if not _is_duplicate(clean, population):
+            population.append(clean)
+        if len(population) == n:
+            return population
 
-    if request_n:
-        raw = llm.generate_text(
-            GENERATOR_SYSTEM,
-            GENERATOR_USER_TEMPLATE.format(n=request_n),
-            max_new_tokens=min(512, 100 * request_n),
-        )
-        generated = _extract_numbered_items(raw)
+    hints = STYLE_HINTS[:]
+    rng.shuffle(hints)
+    budget = max_attempts_per_prompt * (n - len(population))
+    attempts = 0
+    while len(population) < n and attempts < budget:
+        hint = hints[attempts % len(hints)]      # a different style on every attempt
+        attempts += 1
+        try:
+            raw = llm.generate_text(GENERATOR_SYSTEM, GENERATOR_USER_TEMPLATE.format(hint=hint),
+                                    max_new_tokens=200, sample=True)
+        except Exception as exc:  # noqa: BLE001 - a failed call just costs one attempt
+            log.warning("Prompt generation call failed: %s", exc)
+            continue
+        candidate = clean_generated_prompt(raw)
+        problem = check_prompt(candidate)
+        if problem:
+            log.info("Rejected generated prompt (%s)", problem)
+        elif _is_duplicate(candidate, population):
+            log.info("Rejected generated prompt (duplicate)")
+        else:
+            population.append(candidate)
 
-    combined = []
-    seen = set()
-    for prompt in seeds + generated:
-        clean = " ".join(str(prompt).split())
-        key = clean.casefold()
-        if clean and key not in seen:
-            seen.add(key)
-            combined.append(clean)
-        if len(combined) == n:
-            break
-
-    if len(combined) < n:
+    if len(population) < n:
         raise RuntimeError(
-            f"Requested {n} unique prompts but obtained {len(combined)}. "
-            "Retry generation or provide more seed prompts."
-        )
-    return combined
+            f"Requested {n} unique prompts but obtained {len(population)} after {attempts} "
+            "attempts. Retry, add seed prompts, or lower n.")
+    return population
