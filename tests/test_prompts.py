@@ -16,7 +16,10 @@ class FakeLLM:
 
 def test_sentiment_parser():
     assert LLMInterface.parse_sentiment("positive") == "positive"
-    assert LLMInterface.parse_sentiment("The answer is negative.") == "negative"
+    # Member 1's strict policy is the single source of truth: only an exact one-word answer counts.
+    assert LLMInterface.parse_sentiment("Negative.") == "negative"
+    assert LLMInterface.parse_sentiment("The answer is negative.") == "invalid"
+    assert LLMInterface.parse_sentiment("not positive") == "invalid"
     assert LLMInterface.parse_sentiment("positive and negative") == "invalid"
     assert LLMInterface.parse_sentiment("uncertain") == "invalid"
 
