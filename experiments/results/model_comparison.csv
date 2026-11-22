@@ -1,0 +1,4 @@
+model,license,revision,load_s,gpu_gib,mean_f1,best_f1,worst_f1,invalid_answers,reviews_per_s,llm_calls_for_6_new_prompts,mutation_fallbacks_of_6
+Qwen/Qwen2.5-1.5B-Instruct,apache-2.0,989aa7980e4cf806f80c7fef2b1adb7bc71aa306,9,2.9,0.9258,0.9515,0.8889,7,66,8,1
+Qwen/Qwen2.5-3B-Instruct,other,aa8e72537993ba99e69dfaafa59ed015b17504d1,43,5.9,0.8654,0.9384,0.7123,17,35,6,0
+microsoft/Phi-3.5-mini-instruct,mit,2fe192450127e6a83f7441aef6e3ca586c338b77,61,7.1,0.9269,0.9395,0.9022,208,21,6,0
