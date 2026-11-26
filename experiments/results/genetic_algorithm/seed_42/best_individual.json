@@ -1,0 +1,19 @@
+{
+    "id": 44,
+    "prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+    "generation": 3,
+    "parent_ids": [
+        24
+    ],
+    "fitness": 0.9434343434343435,
+    "accuracy": 0.944,
+    "metadata": {
+        "precision_macro": 0.9422485054544869,
+        "recall_macro": 0.9451175010947307,
+        "n_invalid": 0,
+        "invalid_rate": 0.0,
+        "n_examples": 1000,
+        "n_cached": 0,
+        "n_model_texts": 999
+    }
+}

@@ -1,0 +1,112 @@
+[
+    {
+        "generation": 0,
+        "best_fitness": 0.9364262468780746,
+        "average_fitness": 0.9158806343741467,
+        "worst_fitness": 0.8794388219866462,
+        "best_prompt": "Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+        "best_accuracy": 0.937,
+        "diversity": 1.0,
+        "total_invalid": 18,
+        "total_model_texts": 11988
+    },
+    {
+        "generation": 1,
+        "best_fitness": 0.93726829742112,
+        "average_fitness": 0.927753994214016,
+        "worst_fitness": 0.8908663112312583,
+        "best_prompt": "Read the whole text. Decide whether its overall sentiment is positive or negative. Output only the label, as exactly one lowercase word: positive or negative.",
+        "best_accuracy": 0.938,
+        "diversity": 0.75,
+        "total_invalid": 20,
+        "total_model_texts": 5994
+    },
+    {
+        "generation": 2,
+        "best_fitness": 0.937538031279342,
+        "average_fitness": 0.9107218320323929,
+        "worst_fitness": 0.6722815756701841,
+        "best_prompt": "Read the whole text. Decide whether its overall sentiment is positive or negative; if opinions are mixed, choose the dominant one. Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+        "best_accuracy": 0.938,
+        "diversity": 0.9166666666666666,
+        "total_invalid": 0,
+        "total_model_texts": 6993
+    },
+    {
+        "generation": 3,
+        "best_fitness": 0.937538031279342,
+        "average_fitness": 0.9308568441535406,
+        "worst_fitness": 0.9177776708219024,
+        "best_prompt": "Read the whole text. Decide whether its overall sentiment is positive or negative; if opinions are mixed, choose the dominant one. Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+        "best_accuracy": 0.938,
+        "diversity": 0.9166666666666666,
+        "total_invalid": 0,
+        "total_model_texts": 7992
+    },
+    {
+        "generation": 4,
+        "best_fitness": 0.9415263635447122,
+        "average_fitness": 0.934867448045623,
+        "worst_fitness": 0.9276035570785621,
+        "best_prompt": "Read the whole text. Decide whether its overall sentiment is positive or negative. Weigh the overall tone, then output exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.75,
+        "total_invalid": 0,
+        "total_model_texts": 4995
+    },
+    {
+        "generation": 5,
+        "best_fitness": 0.9415263635447122,
+        "average_fitness": 0.9312786611927967,
+        "worst_fitness": 0.8949116206729859,
+        "best_prompt": "Read the whole text. Decide whether its overall sentiment is positive or negative. Weigh the overall tone, then output exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.6666666666666666,
+        "total_invalid": 0,
+        "total_model_texts": 3996
+    },
+    {
+        "generation": 6,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9308682413965697,
+        "worst_fitness": 0.9107180052224051,
+        "best_prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.75,
+        "total_invalid": 4,
+        "total_model_texts": 7992
+    },
+    {
+        "generation": 7,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9366924675374383,
+        "worst_fitness": 0.9192211663422698,
+        "best_prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.5,
+        "total_invalid": 1,
+        "total_model_texts": 3996
+    },
+    {
+        "generation": 8,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9372457400210994,
+        "worst_fitness": 0.9177232209151587,
+        "best_prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.4166666666666667,
+        "total_invalid": 0,
+        "total_model_texts": 1998
+    },
+    {
+        "generation": 9,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9352197332400367,
+        "worst_fitness": 0.895326830834688,
+        "best_prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.5,
+        "total_invalid": 3,
+        "total_model_texts": 2997
+    }
+]

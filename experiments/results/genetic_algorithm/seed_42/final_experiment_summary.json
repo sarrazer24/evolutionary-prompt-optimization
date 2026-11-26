@@ -1,0 +1,55 @@
+{
+    "experiment": "Evolutionary Prompt Optimization for LLM-Based Sentiment Analysis",
+    "algorithm": "Genetic Algorithm",
+    "dataset": "SST-2",
+    "model": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "optimization": {
+        "number_of_examples": 1000,
+        "population_size": 12,
+        "generations": 10,
+        "elite_count": 2,
+        "tournament_size": 3,
+        "crossover_rate": 0.7,
+        "mutation_rate": 0.3,
+        "random_seed": 42
+    },
+    "best_evolved_prompt": {
+        "prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "individual_id": 44,
+        "generation": 3,
+        "macro_f1_opt": 0.9434343434343435,
+        "accuracy_opt": 0.944
+    },
+    "best_manual_prompt": {
+        "name": "Manual 3",
+        "prompt": "Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+        "macro_f1_opt": 0.9364262468780746,
+        "accuracy_opt": 0.937
+    },
+    "optimization_comparison": {
+        "macro_f1_difference": 0.0070080965562688835
+    },
+    "validation_comparison": {
+        "n_examples": 13468,
+        "best_manual_macro_f1": 0.9261510572770224,
+        "evolved_macro_f1": 0.9331484354533668,
+        "macro_f1_difference": 0.006997378176344382,
+        "best_manual_accuracy": 0.9268636768636769,
+        "evolved_accuracy": 0.9333976833976834,
+        "mcnemar": {
+            "only_evolved_correct": 236,
+            "only_manual_correct": 148,
+            "p_value": 8.270053656695239e-06
+        }
+    },
+    "verdict": "Evolved prompt higher on validation by 0.70 points; statistically significant (McNemar p < 0.05).",
+    "limitations": [
+        "Single GA run with seed 42.",
+        "Standard error of about 0.8 points on 1,000 examples.",
+        "Some crossover/mutation attempts returned a parent prompt after exhausting retries.",
+        "Diversity measures exact prompt-string uniqueness, not semantic diversity.",
+        "The final test set was not used."
+    ],
+    "created_at": "2026-11-23T19:18:25.719861"
+}

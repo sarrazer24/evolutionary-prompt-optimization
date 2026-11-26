@@ -1,0 +1,151 @@
+{
+    "experiment": "Multi-seed Genetic Algorithm prompt optimization",
+    "dataset": "SST-2",
+    "model": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "data_seed": 42,
+    "data_hash": "ab937736a4096f2d51b97bdd1444cbe39ca2d3283002bb779c38b235b88d280b",
+    "ga_seeds": [
+        42,
+        7,
+        123
+    ],
+    "seed_42_loaded_from": "/kaggle/input/notebooks/hibazoubir/05-genetic-algorithm-experiment/outputs/genetic_algorithm/experiment_01",
+    "hyperparameters": {
+        "population_size": 12,
+        "generations": 10,
+        "elite_count": 2,
+        "tournament_size": 3,
+        "crossover_rate": 0.7,
+        "mutation_rate": 0.3,
+        "early_stopping_patience": null
+    },
+    "best_manual_prompt": {
+        "name": "Manual 3",
+        "prompt": "Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+        "macro_f1_opt": 0.9364262468780746,
+        "accuracy_opt": 0.937
+    },
+    "per_seed": [
+        {
+            "ga_seed": 42,
+            "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+            "best_generation": 3,
+            "best_macro_f1_opt": 0.9434343434343435,
+            "best_accuracy_opt": 0.944,
+            "best_prompt_invalid": 0,
+            "gen0_best_f1": 0.9405907295357719,
+            "gen0_best_source": "generated",
+            "initial_advantage_vs_manual": 0.00416448265769731,
+            "evolution_gain_after_gen0": 0.002843613898571573,
+            "total_gain_vs_manual": 0.0070080965562688835,
+            "final_diversity": 0.3333333333333333,
+            "mean_diversity": 0.5666666666666667,
+            "cumulative_invalid": 69,
+            "uncached_texts_evaluated": 48951,
+            "execution_time_s": 778.41,
+            "generations_evaluated": 10
+        },
+        {
+            "ga_seed": 7,
+            "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+            "best_generation": 3,
+            "best_macro_f1_opt": 0.941547342621259,
+            "best_accuracy_opt": 0.942,
+            "best_prompt_invalid": 0,
+            "gen0_best_f1": 0.9365629823856547,
+            "gen0_best_source": "generated",
+            "initial_advantage_vs_manual": 0.000136735507580088,
+            "evolution_gain_after_gen0": 0.004984360235604335,
+            "total_gain_vs_manual": 0.005121095743184423,
+            "final_diversity": 0.3333333333333333,
+            "mean_diversity": 0.65,
+            "cumulative_invalid": 43,
+            "uncached_texts_evaluated": 55944,
+            "execution_time_s": 932.42,
+            "generations_evaluated": 10
+        },
+        {
+            "ga_seed": 123,
+            "best_prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.",
+            "best_generation": 6,
+            "best_macro_f1_opt": 0.941547342621259,
+            "best_accuracy_opt": 0.942,
+            "best_prompt_invalid": 0,
+            "gen0_best_f1": 0.9364262468780746,
+            "gen0_best_source": "manual",
+            "initial_advantage_vs_manual": 0.0,
+            "evolution_gain_after_gen0": 0.005121095743184423,
+            "total_gain_vs_manual": 0.005121095743184423,
+            "final_diversity": 0.5,
+            "mean_diversity": 0.7166666666666667,
+            "cumulative_invalid": 46,
+            "uncached_texts_evaluated": 58941,
+            "execution_time_s": 959.11,
+            "generations_evaluated": 10
+        }
+    ],
+    "best_macro_f1_opt_statistics": {
+        "n_runs": 3,
+        "mean": 0.9421763428922872,
+        "std_sample": 0.001089460427395356,
+        "min": 0.941547342621259,
+        "max": 0.9434343434343435,
+        "range": 0.0018870008130844607
+    },
+    "validation_descriptive": {
+        "rows": [
+            {
+                "prompt_name": "Best manual (Manual 3)",
+                "type": "Manual",
+                "macro_f1": 0.9261510572770224,
+                "accuracy": 0.9268636768636769,
+                "precision_macro": 0.9249644068631825,
+                "recall_macro": 0.9279175541571771,
+                "n_invalid": 0,
+                "invalid_rate": 0.0
+            },
+            {
+                "prompt_name": "Evolved (seed 42)",
+                "type": "Evolved",
+                "macro_f1": 0.9331484354533668,
+                "accuracy": 0.9333976833976834,
+                "precision_macro": 0.9327125205086135,
+                "recall_macro": 0.9338088930209187,
+                "n_invalid": 13,
+                "invalid_rate": 0.0009652509652509653
+            },
+            {
+                "prompt_name": "Evolved (seed 7)",
+                "type": "Evolved",
+                "macro_f1": 0.9254048963003809,
+                "accuracy": 0.925972675972676,
+                "precision_macro": 0.9240376729865099,
+                "recall_macro": 0.9283029370976678,
+                "n_invalid": 0,
+                "invalid_rate": 0.0
+            },
+            {
+                "prompt_name": "Evolved (seed 123)",
+                "type": "Evolved",
+                "macro_f1": 0.9270716479181225,
+                "accuracy": 0.9274576774576775,
+                "precision_macro": 0.9258383997608771,
+                "recall_macro": 0.929999609967967,
+                "n_invalid": 4,
+                "invalid_rate": 0.000297000297000297
+            }
+        ],
+        "statistics": {
+            "manual_macro_f1": 0.9261510572770224,
+            "evolved_mean": 0.9285416598906234,
+            "evolved_std_sample": 0.004075696388708108,
+            "evolved_min": 0.9254048963003809,
+            "evolved_max": 0.9331484354533668
+        },
+        "note": "Descriptive only. Validation was not used to select prompts or seeds."
+    },
+    "interpretation": "Across GA seeds [42, 7, 123], the best optimization Macro F1 was 0.9422 on average (sample std 0.0011, range 0.9415 to 0.9434). The best manual prompt scored 0.9364.\n\nIn all three runs the best evolved prompt scored higher than the best manual prompt on the optimization set.\n\nThe spread between seeds (0.19 points) is smaller than the roughly 0.8-point standard error of a 1,000-example sample, so the runs cannot be statistically distinguished.\n\nGeneration 0 already exceeded the best manual prompt by 0.14 points on average (all runs: False). Evolution after generation 0 added 0.43 points on average, and was positive in 3 of 3 runs. Most of the advantage over the manual prompts may therefore come from the initial population rather than from evolutionary search. This is a comparison, not a causal attribution.\n\nThe best prompts differ in wording across seeds; see the similarity matrices and prompt listing above.\n\nValidation Macro F1 of the three evolved prompts: mean 0.9285 (range 0.9254 to 0.9331) versus 0.9262 for the best manual prompt. These numbers are descriptive and were not used to choose any prompt or seed.\n\nLimitations: three seeds only; the 8 manual prompts are shared by all initial populations; a single optimization sample; exact-string diversity; crossover/mutation counts were not recorded; operators sometimes return a parent after failed retries; the test set was not used.",
+    "test_set_used": false,
+    "created_at": "2026-11-23T21:00:15.246835"
+}

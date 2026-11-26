@@ -1,0 +1,19 @@
+{
+    "id": 77,
+    "prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.",
+    "generation": 6,
+    "parent_ids": [
+        65
+    ],
+    "fitness": 0.941547342621259,
+    "accuracy": 0.942,
+    "metadata": {
+        "precision_macro": 0.9401043757527098,
+        "recall_macro": 0.944501208258324,
+        "n_invalid": 0,
+        "invalid_rate": 0.0,
+        "n_examples": 1000,
+        "n_cached": 0,
+        "n_model_texts": 999
+    }
+}

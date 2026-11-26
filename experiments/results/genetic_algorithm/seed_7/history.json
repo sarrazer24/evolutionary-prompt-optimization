@@ -1,0 +1,112 @@
+[
+    {
+        "generation": 0,
+        "best_fitness": 0.9365629823856547,
+        "average_fitness": 0.9140945048986028,
+        "worst_fitness": 0.8794388219866462,
+        "best_prompt": "Classify the sentiment of the following text as positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.937,
+        "diversity": 1.0,
+        "total_invalid": 18,
+        "total_model_texts": 11988
+    },
+    {
+        "generation": 1,
+        "best_fitness": 0.9365629823856547,
+        "average_fitness": 0.9178545277861794,
+        "worst_fitness": 0.8704187564445245,
+        "best_prompt": "Classify the sentiment of the following text as positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.937,
+        "diversity": 1.0,
+        "total_invalid": 8,
+        "total_model_texts": 6993
+    },
+    {
+        "generation": 2,
+        "best_fitness": 0.9365629823856547,
+        "average_fitness": 0.9271648634961114,
+        "worst_fitness": 0.9058912102390363,
+        "best_prompt": "Classify the sentiment of the following text as positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.937,
+        "diversity": 0.9166666666666666,
+        "total_invalid": 7,
+        "total_model_texts": 6993
+    },
+    {
+        "generation": 3,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9237865246997704,
+        "worst_fitness": 0.88543712646785,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.8333333333333334,
+        "total_invalid": 1,
+        "total_model_texts": 6993
+    },
+    {
+        "generation": 4,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9290452994739257,
+        "worst_fitness": 0.8868807574822215,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.75,
+        "total_invalid": 2,
+        "total_model_texts": 5994
+    },
+    {
+        "generation": 5,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9346716937642682,
+        "worst_fitness": 0.9177037334403855,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.5,
+        "total_invalid": 0,
+        "total_model_texts": 2997
+    },
+    {
+        "generation": 6,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9348026287602981,
+        "worst_fitness": 0.8999215384861732,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.4166666666666667,
+        "total_invalid": 3,
+        "total_model_texts": 3996
+    },
+    {
+        "generation": 7,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9291506109038568,
+        "worst_fitness": 0.8849906842454239,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.3333333333333333,
+        "total_invalid": 0,
+        "total_model_texts": 2997
+    },
+    {
+        "generation": 8,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9342006016926757,
+        "worst_fitness": 0.9098409594524741,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.4166666666666667,
+        "total_invalid": 0,
+        "total_model_texts": 3996
+    },
+    {
+        "generation": 9,
+        "best_fitness": 0.941547342621259,
+        "average_fitness": 0.9313745070586887,
+        "worst_fitness": 0.8944203120587829,
+        "best_prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.942,
+        "diversity": 0.3333333333333333,
+        "total_invalid": 4,
+        "total_model_texts": 2997
+    }
+]

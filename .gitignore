@@ -41,6 +41,8 @@ experiments/results/*
 !experiments/results/experiment_B_random/**
 !experiments/results/experiment_C_comparison/
 !experiments/results/experiment_C_comparison/**
+!experiments/results/genetic_algorithm/
+!experiments/results/genetic_algorithm/**
 
 # OS / IDE
 .DS_Store

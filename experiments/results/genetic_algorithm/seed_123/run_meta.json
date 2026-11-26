@@ -1,0 +1,31 @@
+{
+    "ga_seed": 123,
+    "data_seed": 42,
+    "data_hash": "ab937736a4096f2d51b97bdd1444cbe39ca2d3283002bb779c38b235b88d280b",
+    "n_optimization_examples": 1000,
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+        "decoding": "greedy",
+        "max_new_tokens": 8,
+        "repetition_penalty": 1.0,
+        "dtype": "float16",
+        "user_template": "review-sentiment-v1"
+    },
+    "hyperparameters": {
+        "population_size": 12,
+        "generations": 10,
+        "elite_count": 2,
+        "tournament_size": 3,
+        "crossover_rate": 0.7,
+        "mutation_rate": 0.3,
+        "early_stopping_patience": null
+    },
+    "fresh_cache": true,
+    "cache_entries_after_run": 58941,
+    "execution_time_seconds": 959.11,
+    "gpu_name": "Tesla T4",
+    "cuda_version": "13.0",
+    "pytorch_version": "2.11.0+cu130",
+    "created_at": "2026-11-23T20:48:04.419091"
+}

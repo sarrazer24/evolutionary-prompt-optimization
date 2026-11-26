@@ -1,0 +1,112 @@
+[
+    {
+        "generation": 0,
+        "best_fitness": 0.9405907295357719,
+        "average_fitness": 0.9169015648140583,
+        "worst_fitness": 0.8794388219866462,
+        "best_prompt": "Decide if the text is positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.941,
+        "diversity": 1.0,
+        "total_invalid": 18,
+        "total_model_texts": 11988
+    },
+    {
+        "generation": 1,
+        "best_fitness": 0.9405907295357719,
+        "average_fitness": 0.9242638062963638,
+        "worst_fitness": 0.9028522382543849,
+        "best_prompt": "Decide if the text is positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.941,
+        "diversity": 0.75,
+        "total_invalid": 7,
+        "total_model_texts": 6993
+    },
+    {
+        "generation": 2,
+        "best_fitness": 0.9405907295357719,
+        "average_fitness": 0.9316425095684298,
+        "worst_fitness": 0.9176190705823729,
+        "best_prompt": "Decide if the text is positive or negative. Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.941,
+        "diversity": 0.75,
+        "total_invalid": 0,
+        "total_model_texts": 4995
+    },
+    {
+        "generation": 3,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.9287799455464185,
+        "worst_fitness": 0.8888443275154004,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.6666666666666666,
+        "total_invalid": 2,
+        "total_model_texts": 4995
+    },
+    {
+        "generation": 4,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.9346580606624149,
+        "worst_fitness": 0.9068583315222454,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.5833333333333334,
+        "total_invalid": 38,
+        "total_model_texts": 3996
+    },
+    {
+        "generation": 5,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.93398484822653,
+        "worst_fitness": 0.8979412141393442,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.6666666666666666,
+        "total_invalid": 0,
+        "total_model_texts": 5994
+    },
+    {
+        "generation": 6,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.9412936115516097,
+        "worst_fitness": 0.9296748163508062,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.4166666666666667,
+        "total_invalid": 0,
+        "total_model_texts": 3996
+    },
+    {
+        "generation": 7,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.9334323125011812,
+        "worst_fitness": 0.834694349852878,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.25,
+        "total_invalid": 3,
+        "total_model_texts": 1998
+    },
+    {
+        "generation": 8,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.9376812481796079,
+        "worst_fitness": 0.9197109594540345,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.25,
+        "total_invalid": 0,
+        "total_model_texts": 999
+    },
+    {
+        "generation": 9,
+        "best_fitness": 0.9434343434343435,
+        "average_fitness": 0.9378099296074982,
+        "worst_fitness": 0.903913522169953,
+        "best_prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "best_accuracy": 0.944,
+        "diversity": 0.3333333333333333,
+        "total_invalid": 1,
+        "total_model_texts": 2997
+    }
+]
