@@ -15,21 +15,18 @@ Create one notebook per member. Keep notebooks for exploration and demonstration
 | 05 | `05_genetic_algorithm_experiment.ipynb` | 3 | **Main GA experiment** (seed 42): evolution, manual comparison, validation |
 | 06 | `06_multi_seed_experiment.ipynb` | 3 | Multi-seed GA runs (seeds 7 & 123), multi-seed analysis |
 | 07 | `07_experiment_A_manual_prompts.ipynb` | 4 | **Experiment A**: evaluate all 8 manual prompts on opt + val |
-| 08 | `08_experiment_B_random_baseline.ipynb` | 4 | **Experiment B**: random prompt generation baseline (36 candidates, no evolutionary pressure) |
+| 08 | `08_experiment_B_random_baseline.ipynb` | 4 | **Experiment B**: random prompt generation baseline (no evolutionary pressure) |
 | 09 | `09_experiment_C_three_way_comparison.ipynb` | 4 | **Experiment C**: three-way A/B/C comparison table, McNemar tests |
-| 10 | `10_member5_results_analysis.ipynb` | 5 | **Final analysis**: performance tables, all visualizations, statistical tests, research discussion, conclusion |
 
 ---
 
 ## Run Order on Kaggle
 
 ```
-01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10
+01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09
 ```
 
-Notebooks 07–10 depend on the outputs of 05 and 06.  
-Notebook 09 depends on the outputs of 07 and 08.  
-Notebook 10 is self-contained: it re-evaluates prompts and embeds results from 05/06.
+Notebook 09 depends on the outputs of 05/06, 07, and 08.
 
 ---
 

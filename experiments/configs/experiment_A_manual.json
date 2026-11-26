@@ -1,0 +1,41 @@
+{
+  "experiment": "A",
+  "name": "manual_prompt_baseline",
+  "description": "Evaluate all 8 manually engineered prompts authored by Member 2 under the shared protocol.",
+  "owner": "Member 4 (prompts authored by Member 2)",
+  "dataset": {
+    "source": "nyu-mll/glue:sst2",
+    "data_dir": "data/processed",
+    "opt_total_rows": 53871,
+    "val_total_rows": 13468,
+    "split_seed": 42,
+    "n_opt_examples": 1000,
+    "opt_sampling": "stratified_sample",
+    "n_val_examples": 13468,
+    "val_sampling": "full_validation_split",
+    "test_set_used": false
+  },
+  "model": {
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "dtype": "auto",
+    "classify_decoding": "greedy",
+    "classify_max_new_tokens": 8,
+    "batch_size": 32
+  },
+  "budget": {
+    "n_candidates": 8,
+    "opt_evaluations_per_candidate": 1000,
+    "total_opt_text_evaluations": 8000,
+    "val_evaluations_final_selected": 13468,
+    "evolutionary_selection": false,
+    "crossover": false,
+    "mutation": false
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy", "precision_macro", "recall_macro", "invalid_rate"]
+  },
+  "seed": 42,
+  "output_dir": "experiments/results/experiment_A_manual"
+}

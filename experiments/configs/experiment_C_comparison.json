@@ -1,0 +1,55 @@
+{
+  "experiment": "C",
+  "name": "three_way_controlled_comparison",
+  "description": "Controlled comparison of Experiment A (Manual), Experiment B (Random), and Experiment C (Member 3 Genetic Algorithm across seeds 42, 7, 123) on identical opt and validation splits.",
+  "owner": "Member 4 (GA outputs from Member 3)",
+  "dataset": {
+    "source": "nyu-mll/glue:sst2",
+    "data_dir": "data/processed",
+    "opt_total_rows": 53871,
+    "val_total_rows": 13468,
+    "split_seed": 42,
+    "n_opt_examples": 1000,
+    "opt_sampling": "stratified_sample",
+    "n_val_examples": 13468,
+    "val_sampling": "full_validation_split",
+    "test_set_used": false
+  },
+  "model": {
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "dtype": "auto",
+    "classify_decoding": "greedy",
+    "classify_max_new_tokens": 8,
+    "batch_size": 32
+  },
+  "ga_reference_configuration": {
+    "source_notebooks": [
+      "notebooks/05_genetic_algorithm_experiment.ipynb",
+      "notebooks/06_multi_seed_experiment.ipynb"
+    ],
+    "population_size": 12,
+    "generations": 10,
+    "elite_count": 2,
+    "tournament_size": 3,
+    "crossover_rate": 0.7,
+    "mutation_rate": 0.3,
+    "ga_seeds": [42, 7, 123],
+    "uncached_texts_evaluated_per_seed": {
+      "42": 48951,
+      "7": 55944,
+      "123": 58941
+    }
+  },
+  "statistical_tests_recorded": {
+    "test": "McNemar (exact binomial and continuity-corrected chi2)",
+    "alpha": 0.05,
+    "note": "Raw test statistics recorded for Member 5; final statistical interpretation and research discussion are Member 5's responsibility."
+  },
+  "metrics": {
+    "primary": "f1_macro",
+    "secondary": ["accuracy", "precision_macro", "recall_macro", "invalid_rate"]
+  },
+  "seed": 42,
+  "output_dir": "experiments/results/experiment_C_comparison"
+}
