@@ -17,6 +17,7 @@ Create one notebook per member. Keep notebooks for exploration and demonstration
 | 07 | `07_experiment_A_manual_prompts.ipynb` | 4 | **Experiment A**: evaluate all 8 manual prompts on opt + val |
 | 08 | `08_experiment_B_random_baseline.ipynb` | 4 | **Experiment B**: random prompt generation baseline (no evolutionary pressure) |
 | 09 | `09_experiment_C_three_way_comparison.ipynb` | 4 | **Experiment C**: three-way A/B/C comparison table, McNemar tests |
+| 10 | `10_results_analysis.ipynb` | 5 | **Results analysis**: validation performance, seed variability, paired tests, discussion |
 
 ---
 
@@ -28,6 +29,11 @@ Create one notebook per member. Keep notebooks for exploration and demonstration
 
 Notebook 09 depends on the outputs of 05/06, 07, and 08.
 
+Notebook 10 analyzes the saved results without rerunning the model. For the
+reproducible tables and figures used by the report, run
+`python experiments/analyze_member5_results.py` from the repository root.
+The analysis report is in `docs/member5_results_report.md`.
+
 ---
 
 ## Fair-Comparison Protocol (enforced by Member 4)
@@ -37,6 +43,6 @@ Notebook 09 depends on the outputs of 05/06, 07, and 08.
 | Model | `Qwen/Qwen2.5-1.5B-Instruct` rev `989aa798` |
 | Decoding | Greedy, `max_new_tokens=8` |
 | Opt sample | 1 000 examples, `stratified_sample`, seed 42 |
-| Val sample | 1 000 examples, `stratified_sample`, seed 42 |
+| Validation split | Full canonical split, 13 468 examples |
 | Primary metric | Macro F1 |
 | Test set | **Never used** |
