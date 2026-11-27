@@ -12,9 +12,10 @@ For the full controlled protocol, evaluation-budget justification, literature re
   - `experiment_C_comparison.json`
 - `random_baseline.py` — Pure LLM-based random prompt generator (`seed_prompts=None`, no selection/crossover/mutation, disjoint from Experiment A's manual prompts).
 - `results/` — Comparison-ready CSV/JSON outputs and summary plots:
-  - `experiment_A_manual/` (from `notebooks/07_experiment_A_manual_prompts.ipynb`)
-  - `experiment_B_random/` (from `notebooks/08_experiment_B_random_baseline.ipynb`)
-  - `experiment_C_comparison/` (from `notebooks/09_experiment_C_three_way_comparison.ipynb`)
+  - `experiment_A_manual/` (from `notebooks/07_experiment_A_manual_prompts.ipynb`): 8 manual prompt evaluations, summary JSON/CSVs, and distribution plots.
+  - `experiment_B_random/` (from `notebooks/08_experiment_B_random_baseline.ipynb`): 50 random prompt evaluations, summary JSON/CSVs, and distribution plots.
+  - `experiment_C_comparison/` (from `notebooks/09_experiment_C_three_way_comparison.ipynb`): Three-way comparison tables, McNemar significance tests, and comparison plots.
+  - `genetic_algorithm/`: Evaluated artifacts for GA seeds 7, 42, and 123 (`best_individual.json`, `history.json`, `run_meta.json` / `experiment_config.json`) and `multi_seed_summary.json`.
 
 ## Rules
 

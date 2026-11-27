@@ -1,0 +1,36 @@
+{
+    "experiment": "B",
+    "name": "random_prompt_generation_baseline",
+    "description": "50 purely LLM-generated unique prompts — no manual seeds, no evolutionary pressure",
+    "dataset": "nyu-mll/glue:sst2",
+    "data_dir": "data/processed",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "inference": {
+        "greedy": true,
+        "max_new_tokens": 8,
+        "batch_size": 32
+    },
+    "generation": {
+        "method": "llm_assisted_pure_random",
+        "n_candidates": 50,
+        "manual_seeds_included": false,
+        "no_selection": true,
+        "no_crossover": true,
+        "no_mutation": true
+    },
+    "budget_justification": "GA ran 10 generations (pop=12): seed 42 used 49 uncached prompt evaluations (48,951 texts); 50 random candidates = 50,000 opt text evaluations.",
+    "split_seed": 42,
+    "evaluation_seed": 42,
+    "n_opt_examples": 1000,
+    "val_sampling": "full_validation_split",
+    "metric_primary": "f1_macro",
+    "metric_secondary": [
+        "accuracy",
+        "precision_macro",
+        "recall_macro",
+        "invalid_rate"
+    ],
+    "test_set_used": false,
+    "created_at": "2026-11-26T23:52:01.241699",
+    "n_val_examples": 13468
+}

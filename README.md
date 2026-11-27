@@ -51,15 +51,44 @@ Evaluate the resulting prompts using consistent classification settings and comp
 | Classification labels | Positive / Negative |
 | Optimization method | Genetic Algorithm |
 | Optimization target | Natural-language system prompts |
-| Model | Hugging Face instruction-tuned causal language model |
-| Initial model candidate | Qwen2.5-3B-Instruct |
-| Framework | Python and Hugging Face Transformers |
-| Compute environment | Kaggle GPU |
-| Fine-tuning | Not performed |
+| Model | `Qwen/Qwen2.5-1.5B-Instruct` |
+| Pinned model revision | `989aa7980e4cf806f80c7fef2b1adb7bc71aa306` |
+| Framework | Python, PyTorch, Hugging Face Transformers |
+| Compute environment | Kaggle GPU (Tesla T4) |
+| Fine-tuning | Not performed (fixed frozen weights) |
 
 The classifier model and inference configuration are kept consistent across prompt comparisons to isolate the effect of prompt optimization.
 
-The initial model choice is subject to hardware compatibility testing.
+## Experimental Results
+
+The project conducted a rigorous three-way comparison on the SST-2 benchmark using standardized splits (`data/processed/opt.csv` with $n=1,000$ examples for optimization; `data/processed/val.csv` with $N=13,468$ examples for full validation):
+
+### Summary of Experiments
+
+- **Experiment A (Manual Prompt Baselines):** Evaluates 8 human-crafted prompts reflecting different prompting styles (concise, role-based, few-shot style, criteria-based). Served as the reference baseline.
+- **Experiment B (Random Prompt Generation Baseline):** Evaluates 50 independent LLM-generated prompts without evolutionary operators or manual seed contamination, matching the computational evaluation budget.
+- **Experiment C (Genetic Algorithm & Controlled Comparison):** Evaluates prompts evolved through selection, single-point/two-point crossover, and mutation across three distinct random seeds (`42`, `7`, `123`).
+
+### Verified Performance Comparison
+
+| Method | Candidates / Text Evals | Best Prompt ID / Name | Optimization Macro F1 ($n=1,000$) | Validation Macro F1 ($N=13,468$) | Validation Accuracy ($N=13,468$) | McNemar vs Manual ($p$-value) |
+|:---|:---:|:---|:---:|:---:|:---:|:---:|
+| **Experiment A (Manual)** | 8 / 8,000 | `baseline_criteria` | 0.9364 | 0.9262 | 0.9269 | — |
+| **Experiment B (Random)** | 50 / 50,000 | `random_047` | **0.9435** | 0.9314 | 0.9321 | $p = 0.00035$ (Sig) |
+| **Experiment C: GA Seed 42** | 120 / 48,951 | Individual #44 | 0.9434 | **0.9331** | **0.9334** | $p = 8.0 \times 10^{-6}$ (Sig) |
+| **GA Seed 7** | 120 / 55,944 | Individual #38 | 0.9415 | 0.9260 | 0.9263 | $p = 0.561$ (Non-sig) |
+| **GA Seed 123** | 120 / 58,941 | Individual #75 | 0.9415 | 0.9267 | 0.9269 | $p = 0.712$ (Non-sig) |
+
+*Key Findings:*
+- **GA vs Manual:** The best evolved prompt (Seed 42) achieved a statistically significant improvement over the best manual baseline on the full validation split (+0.69 F1 points, McNemar exact binomial $p = 8.0 \times 10^{-6}$).
+- **GA vs Random:** The best evolved prompt also achieved higher validation performance than the best pure random prompt (0.9331 vs 0.9314), though the pairwise difference between top single candidates was not statistically significant ($p = 0.272$).
+- **Multi-Seed Variance:** Across three random seeds, GA performance ranged from 0.9260 to 0.9331 on validation, highlighting the necessity of multi-seed evaluations in prompt evolution studies.
+
+Relevant executed notebooks and result directories:
+- Experiment A: [`notebooks/07_experiment_A_manual_prompts.ipynb`](notebooks/07_experiment_A_manual_prompts.ipynb) & [`experiments/results/experiment_A_manual/`](experiments/results/experiment_A_manual/)
+- Experiment B: [`notebooks/08_experiment_B_random_baseline.ipynb`](notebooks/08_experiment_B_random_baseline.ipynb) & [`experiments/results/experiment_B_random/`](experiments/results/experiment_B_random/)
+- Experiment C: [`notebooks/09_experiment_C_three_way_comparison.ipynb`](notebooks/09_experiment_C_three_way_comparison.ipynb) & [`experiments/results/experiment_C_comparison/`](experiments/results/experiment_C_comparison/)
+- Multi-seed GA Results: [`experiments/results/genetic_algorithm/`](experiments/results/genetic_algorithm/)
 
 ## Evaluation and Reproducibility
 

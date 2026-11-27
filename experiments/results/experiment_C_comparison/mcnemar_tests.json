@@ -1,0 +1,93 @@
+[
+    {
+        "comparison": "Exp-A (Manual) vs Exp-B (Random)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 152,
+        "c_m1_wrong_m2_right": 222,
+        "n_discordant": 374,
+        "exact_p_value": 0.000347,
+        "chi2": 12.729947,
+        "chi2_p_value": 0.00036,
+        "alpha": 0.05,
+        "significant_exact": true,
+        "significant_chi2": true
+    },
+    {
+        "comparison": "Exp-A (Manual) vs Exp-C (GA seed 42)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 148,
+        "c_m1_wrong_m2_right": 236,
+        "n_discordant": 384,
+        "exact_p_value": 8e-06,
+        "chi2": 19.710938,
+        "chi2_p_value": 9e-06,
+        "alpha": 0.05,
+        "significant_exact": true,
+        "significant_chi2": true
+    },
+    {
+        "comparison": "Exp-B (Random) vs Exp-C (GA seed 42)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 111,
+        "c_m1_wrong_m2_right": 129,
+        "n_discordant": 240,
+        "exact_p_value": 0.272457,
+        "chi2": 1.204167,
+        "chi2_p_value": 0.27249,
+        "alpha": 0.05,
+        "significant_exact": false,
+        "significant_chi2": false
+    },
+    {
+        "comparison": "Exp-A (Manual) vs Exp-C (GA seed 7)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 185,
+        "c_m1_wrong_m2_right": 173,
+        "n_discordant": 358,
+        "exact_p_value": 0.561053,
+        "chi2": 0.337989,
+        "chi2_p_value": 0.560992,
+        "alpha": 0.05,
+        "significant_exact": false,
+        "significant_chi2": false
+    },
+    {
+        "comparison": "Exp-B (Random) vs Exp-C (GA seed 7)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 173,
+        "c_m1_wrong_m2_right": 91,
+        "n_discordant": 264,
+        "exact_p_value": 1e-06,
+        "chi2": 24.852273,
+        "chi2_p_value": 1e-06,
+        "alpha": 0.05,
+        "significant_exact": true,
+        "significant_chi2": true
+    },
+    {
+        "comparison": "Exp-A (Manual) vs Exp-C (GA seed 123)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 176,
+        "c_m1_wrong_m2_right": 184,
+        "n_discordant": 360,
+        "exact_p_value": 0.712233,
+        "chi2": 0.136111,
+        "chi2_p_value": 0.712178,
+        "alpha": 0.05,
+        "significant_exact": false,
+        "significant_chi2": false
+    },
+    {
+        "comparison": "Exp-B (Random) vs Exp-C (GA seed 123)",
+        "n_examples": 13468,
+        "b_m1_right_m2_wrong": 161,
+        "c_m1_wrong_m2_right": 99,
+        "n_discordant": 260,
+        "exact_p_value": 0.000145,
+        "chi2": 14.311538,
+        "chi2_p_value": 0.000155,
+        "alpha": 0.05,
+        "significant_exact": true,
+        "significant_chi2": true
+    }
+]

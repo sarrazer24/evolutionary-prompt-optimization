@@ -1,0 +1,378 @@
+[
+  {
+    "prompt": "Classify the sentiment of the movie review as positive or negative. Reply with exactly one word: positive or negative. Do not explain.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.919,
+      "precision_macro": 0.9186670720145925,
+      "recall_macro": 0.9243622180054818,
+      "f1_macro": 0.9186974732981423,
+      "n_invalid": 0,
+      "invalid_rate": 0.0,
+      "confusion_matrix": [
+        [
+          429,
+          13,
+          0
+        ],
+        [
+          68,
+          490,
+          0
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "You are an expert film critic who reads reviews for a living. Decide whether the reviewer's overall opinion of the movie is positive or negative. Answer with only that one word.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.889,
+      "precision_macro": 0.9035443722943723,
+      "recall_macro": 0.8984211550625213,
+      "f1_macro": 0.8934505761067314,
+      "n_invalid": 10,
+      "invalid_rate": 0.01,
+      "confusion_matrix": [
+        [
+          433,
+          6,
+          3
+        ],
+        [
+          95,
+          456,
+          7
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.937,
+      "precision_macro": 0.9350905558840209,
+      "recall_macro": 0.9386099352892521,
+      "f1_macro": 0.9364262468780746,
+      "n_invalid": 0,
+      "invalid_rate": 0.0,
+      "confusion_matrix": [
+        [
+          421,
+          21,
+          0
+        ],
+        [
+          42,
+          516,
+          0
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "Be careful with negation, sarcasm and irony: a phrase such as 'not bad' or 'hardly a masterpiece' does not mean what its individual words suggest. Judge the intended sentiment of the whole text and answer with exactly one word: positive or negative.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.879,
+      "precision_macro": 0.8902404921700224,
+      "recall_macro": 0.8904012390729659,
+      "f1_macro": 0.8794388219866462,
+      "n_invalid": 1,
+      "invalid_rate": 0.001,
+      "confusion_matrix": [
+        [
+          437,
+          5,
+          0
+        ],
+        [
+          115,
+          442,
+          1
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "Would the writer recommend this movie? If the text is favorable, answer positive; if it is unfavorable, answer negative. Respond with that single word and nothing else.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.91,
+      "precision_macro": 0.9113245298119248,
+      "recall_macro": 0.916768030620023,
+      "f1_macro": 0.9097921611392649,
+      "n_invalid": 0,
+      "invalid_rate": 0.0,
+      "confusion_matrix": [
+        [
+          431,
+          11,
+          0
+        ],
+        [
+          79,
+          479,
+          0
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "The input may be a short phrase or a sentence fragment taken from a movie review, so judge only the sentiment it expresses. Output exactly one label, positive or negative, with no punctuation or commentary.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.917,
+      "precision_macro": 0.9157730625903111,
+      "recall_macro": 0.9211591170794207,
+      "f1_macro": 0.9165794771442843,
+      "n_invalid": 0,
+      "invalid_rate": 0.0,
+      "confusion_matrix": [
+        [
+          423,
+          19,
+          0
+        ],
+        [
+          64,
+          494,
+          0
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "Classify movie-review sentiment. Examples: 'a gripping, beautifully acted drama' is positive. 'dull, predictable and far too long' is negative. 'an uneven script that wastes a talented cast' is negative. Now classify the new text and answer with exactly one word: positive or negative.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.918,
+      "precision_macro": 0.9238122286688035,
+      "recall_macro": 0.9232309962860248,
+      "f1_macro": 0.9210559315246367,
+      "n_invalid": 7,
+      "invalid_rate": 0.007,
+      "confusion_matrix": [
+        [
+          428,
+          13,
+          1
+        ],
+        [
+          62,
+          490,
+          6
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  },
+  {
+    "prompt": "Follow these rules. 1) Read the whole text. 2) Decide whether its overall sentiment is positive or negative; if opinions are mixed, choose the dominant one. 3) Output only the label, as exactly one lowercase word: positive or negative.",
+    "split": "opt",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct@989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "inference_config": {
+      "decoding": "greedy",
+      "max_new_tokens": 8,
+      "repetition_penalty": 1.0,
+      "dtype": "float16",
+      "user_template": "review-sentiment-v1"
+    },
+    "n_examples": 1000,
+    "n_cached": 0,
+    "n_model_texts": 999,
+    "metrics": {
+      "n_examples": 1000,
+      "accuracy": 0.921,
+      "precision_macro": 0.9199272447864766,
+      "recall_macro": 0.925448839585462,
+      "f1_macro": 0.9206220817311219,
+      "n_invalid": 0,
+      "invalid_rate": 0.0,
+      "confusion_matrix": [
+        [
+          426,
+          16,
+          0
+        ],
+        [
+          63,
+          495,
+          0
+        ]
+      ],
+      "confusion_matrix_labels": {
+        "rows": [
+          "true_negative",
+          "true_positive"
+        ],
+        "columns": [
+          "pred_negative",
+          "pred_positive",
+          "invalid"
+        ]
+      }
+    }
+  }
+]

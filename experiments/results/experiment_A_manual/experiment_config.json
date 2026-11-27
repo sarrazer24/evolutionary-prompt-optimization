@@ -1,0 +1,27 @@
+{
+    "experiment": "A",
+    "name": "manual_prompt_baseline",
+    "description": "Manual prompt baseline — 8 hand-crafted prompts by Member 2",
+    "dataset": "nyu-mll/glue:sst2",
+    "data_dir": "data/processed",
+    "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "inference": {
+        "greedy": true,
+        "max_new_tokens": 8,
+        "batch_size": 32
+    },
+    "split_seed": 42,
+    "evaluation_seed": 42,
+    "n_opt_examples": 1000,
+    "val_sampling": "full_validation_split",
+    "metric_primary": "f1_macro",
+    "metric_secondary": [
+        "accuracy",
+        "precision_macro",
+        "recall_macro",
+        "invalid_rate"
+    ],
+    "test_set_used": false,
+    "created_at": "2026-11-26T23:46:17.927765",
+    "n_val_examples": 13468
+}

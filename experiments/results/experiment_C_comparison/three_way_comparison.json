@@ -1,0 +1,50 @@
+[
+    {
+        "experiment": "A",
+        "method": "Manual Prompts",
+        "n_candidates": 8,
+        "opt_text_evals": 8000,
+        "evolutionary_pressure": false,
+        "best_prompt_id": "baseline_criteria",
+        "best_prompt_text": "Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative.",
+        "macro_f1_opt": 0.936426,
+        "accuracy_opt": 0.937,
+        "macro_f1_val": 0.926151,
+        "accuracy_val": 0.926864,
+        "precision_val": 0.924964,
+        "recall_val": 0.927918,
+        "invalid_rate_val": 0.0
+    },
+    {
+        "experiment": "B",
+        "method": "Pure Random Generation",
+        "n_candidates": 50,
+        "opt_text_evals": 50000,
+        "evolutionary_pressure": false,
+        "best_prompt_id": "random_047",
+        "best_prompt_text": "Label the sentiment of the text as positive or negative, using only evaluative language, ignoring plot descriptions. Answer with exactly one word: positive or negative.",
+        "macro_f1_opt": 0.943479,
+        "accuracy_opt": 0.944,
+        "macro_f1_val": 0.93139,
+        "accuracy_val": 0.932061,
+        "precision_val": 0.930371,
+        "recall_val": 0.932785,
+        "invalid_rate_val": 7.4e-05
+    },
+    {
+        "experiment": "C",
+        "method": "Genetic Algorithm (seed 42)",
+        "n_candidates": 120,
+        "opt_text_evals": 48951,
+        "evolutionary_pressure": true,
+        "best_prompt_id": "ga_seed_42_best",
+        "best_prompt_text": "Is the text positive or negative? Answer with exactly one word: positive or negative.",
+        "macro_f1_opt": 0.943434,
+        "accuracy_opt": 0.944,
+        "macro_f1_val": 0.933148,
+        "accuracy_val": 0.933398,
+        "precision_val": 0.932713,
+        "recall_val": 0.933809,
+        "invalid_rate_val": 0.000965
+    }
+]

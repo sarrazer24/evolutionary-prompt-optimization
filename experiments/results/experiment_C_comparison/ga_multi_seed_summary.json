@@ -1,0 +1,50 @@
+{
+    "runs": [
+        {
+            "seed": 42,
+            "best_generation": 3,
+            "uncached_opt_texts": 48951,
+            "macro_f1_opt": 0.943434,
+            "accuracy_opt": 0.944,
+            "macro_f1_val": 0.933148,
+            "accuracy_val": 0.933398,
+            "delta_opt_vs_manual": 0.007008,
+            "delta_opt_vs_random": -4.5e-05,
+            "delta_val_vs_manual": 0.006997,
+            "delta_val_vs_random": 0.001758,
+            "prompt": "Is the text positive or negative? Answer with exactly one word: positive or negative."
+        },
+        {
+            "seed": 7,
+            "best_generation": 3,
+            "uncached_opt_texts": 55944,
+            "macro_f1_opt": 0.941547,
+            "accuracy_opt": 0.942,
+            "macro_f1_val": 0.925405,
+            "accuracy_val": 0.925973,
+            "delta_opt_vs_manual": 0.005121,
+            "delta_opt_vs_random": -0.001932,
+            "delta_val_vs_manual": -0.000746,
+            "delta_val_vs_random": -0.005985,
+            "prompt": "Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative."
+        },
+        {
+            "seed": 123,
+            "best_generation": 6,
+            "uncached_opt_texts": 58941,
+            "macro_f1_opt": 0.941547,
+            "accuracy_opt": 0.942,
+            "macro_f1_val": 0.927072,
+            "accuracy_val": 0.927458,
+            "delta_opt_vs_manual": 0.005121,
+            "delta_opt_vs_random": -0.001932,
+            "delta_val_vs_manual": 0.000921,
+            "delta_val_vs_random": -0.004318,
+            "prompt": "Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative."
+        }
+    ],
+    "mean_best_opt_f1": 0.942176,
+    "std_best_opt_f1": 0.001089,
+    "mean_val_f1": 0.928542,
+    "std_val_f1": 0.004075
+}

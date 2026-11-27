@@ -1,0 +1,4 @@
+seed,best_generation,uncached_opt_texts,macro_f1_opt,accuracy_opt,macro_f1_val,accuracy_val,delta_opt_vs_manual,delta_opt_vs_random,delta_val_vs_manual,delta_val_vs_random,prompt
+42,3,48951,0.943434,0.944,0.933148,0.933398,0.007008,-4.5e-05,0.006997,0.001758,Is the text positive or negative? Answer with exactly one word: positive or negative.
+7,3,55944,0.941547,0.942,0.925405,0.925973,0.005121,-0.001932,-0.000746,-0.005985,Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.
+123,6,58941,0.941547,0.942,0.927072,0.927458,0.005121,-0.001932,0.000921,-0.004318,Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.

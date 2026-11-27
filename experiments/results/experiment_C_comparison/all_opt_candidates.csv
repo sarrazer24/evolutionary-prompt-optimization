@@ -1,0 +1,62 @@
+rank,experiment,method,candidate_id,macro_f1_opt,accuracy_opt,prompt_text
+1,B,random,random_047,0.943479,0.944,"Label the sentiment of the text as positive or negative, using only evaluative language, ignoring plot descriptions. Answer with exactly one word: positive or negative."
+2,C,ga_seed42,ga_seed_42_best,0.943434,0.944,Is the text positive or negative? Answer with exactly one word: positive or negative.
+3,B,random,random_032,0.943388,0.944,- sentiment: positive or negative. Answer with exactly one word: positive or negative.
+4,B,random,random_033,0.942481,0.943,"Identify if the sentiment in the text is positive or negative, using only genuine praise or rejecting criticism as criteria. Answer with exactly one word: positive or negative."
+5,B,random,random_011,0.942413,0.943,Label the text as positive or negative. Answer with exactly one word: positive or negative.
+6,C,ga_seed7,ga_seed_7_best,0.941547,0.942,Classify the sentiment as positive or negative: positive or negative. Answer with exactly one word: positive or negative.
+7,C,ga_seed123,ga_seed_123_best,0.941547,0.942,Read the text. Classify sentiment as positive or negative. Answer with one word: positive or negative.
+8,B,random,random_004,0.940591,0.941,Decide if the text is positive or negative. Answer with exactly one word: positive or negative.
+9,B,random,random_027,0.939532,0.94,Is the sentiment of the text positive or negative? Answer with exactly one word: positive or negative.
+10,B,random,random_012,0.938513,0.939,Please categorize the sentiment of the following text as positive or negative. Answer with exactly one word: positive or negative.
+11,B,random,random_034,0.936681,0.937,Classify the sentiment of the following text as positive or negative: ____________. Answer with exactly one word: positive or negative.
+12,A,manual,baseline_criteria,0.936426,0.937,"Look for praise, enthusiasm and approval (positive) versus complaints, disappointment and criticism (negative). Weigh the overall tone of the text, then output exactly one word: positive or negative."
+13,B,random,random_013,0.935628,0.936,"Given the text, is it positive or negative? Answer with exactly one word: positive or negative."
+14,B,random,random_018,0.935608,0.936,Classify the sentiment of the text as positive or negative. Answer with exactly one word: positive or negative.
+15,B,random,random_042,0.935477,0.936,Determine the sentiment of the following movie review text: positive or negative. Answer with exactly one word: positive or negative.
+16,B,random,random_045,0.934632,0.935,"Determine sentiment based on overall tone and concluding remarks, considering adjectives and tone. Answer with exactly one word: positive or negative."
+17,B,random,random_041,0.934632,0.935,Identify the sentiment of the following text by classifying it as positive or negative: - Look for words that express praise or complaint - Note the tone and intensity of the language used. Answer with exactly one word: positive or negative.
+18,B,random,random_016,0.934504,0.935,"Please classify the sentiment of the given text as positive or negative, and output your answer with exactly one word: positive or negative."
+19,B,random,random_036,0.932621,0.933,"Based on the evaluative language in the text, classify the sentiment as: positive or negative. Answer with exactly one word: positive or negative."
+20,B,random,random_005,0.9326,0.933,Please classify the following text as positive or negative. Answer with exactly one word: positive or negative.
+21,B,random,random_003,0.931605,0.932,Please classify the sentiment of the following movie review as positive or negative. Answer with one word: positive or negative.
+22,B,random,random_022,0.92866,0.929,Decide whether the sentiment of the text is positive or negative. Answer with exactly one word: positive or negative.
+23,B,random,random_006,0.928197,0.928,Did the review express a positive or negative sentiment? Answer with exactly one word: positive or negative.
+24,B,random,random_050,0.92669,0.927,"Based on the overall sentiment expressed in the text, classify it as: positive or negative. Answer with exactly one word: positive or negative."
+25,B,random,random_048,0.92663,0.927,Please label this movie review text as positive or negative. Answer with exactly one word: positive or negative.
+26,B,random,random_014,0.924701,0.925,"Please classify the sentiment of the movie review as positive or negative, and provide a single word answer."
+27,B,random,random_020,0.923725,0.924,"Decide sentiment based on overall tone, favoring positive or negative with mixed opinions. Answer with exactly one word: positive or negative."
+28,B,random,random_037,0.923687,0.924,Please provide a movie-review text and classify it as: positive or negative. Answer with exactly one word: positive or negative.
+29,B,random,random_001,0.922731,0.923,"Given a movie review text, classify it as positive or negative. Answer with exactly one word: positive or negative."
+30,B,random,random_007,0.922673,0.923,Is the sentiment of the following movie review positive or negative? Answer with exactly one word: positive or negative.
+31,B,random,random_010,0.921699,0.922,"Please classify the sentiment of the provided movie-review text as either positive or negative, without including any additional information. Answer with exactly one word: positive or negative."
+32,A,manual,baseline_fewshot,0.921056,0.918,"Classify movie-review sentiment. Examples: 'a gripping, beautifully acted drama' is positive. 'dull, predictable and far too long' is negative. 'an uneven script that wastes a talented cast' is negative. Now classify the new text and answer with exactly one word: positive or negative."
+33,A,manual,baseline_rules,0.920622,0.921,"Follow these rules. 1) Read the whole text. 2) Decide whether its overall sentiment is positive or negative; if opinions are mixed, choose the dominant one. 3) Output only the label, as exactly one lowercase word: positive or negative."
+34,B,random,random_029,0.918736,0.919,"Please classify the sentiment of the movie review as either positive or negative, with a focus on identifying the dominant opinion. Answer with exactly one word: positive or negative."
+35,A,manual,baseline_direct,0.918697,0.919,Classify the sentiment of the movie review as positive or negative. Reply with exactly one word: positive or negative. Do not explain.
+36,B,random,random_043,0.917742,0.918,"Based on the sentiment expressed in this movie review text, label as: positive or negative. Answer with exactly one word: positive or negative."
+37,B,random,random_028,0.916748,0.917,"Given a movie review text, determine if it is positive or negative. Answer with exactly one word: positive or negative."
+38,B,random,random_026,0.916729,0.917,"Please classify the sentiment of the following movie review as either positive or negative, and provide your answer with exactly one word: positive or negative."
+39,A,manual,baseline_fragment,0.916579,0.917,"The input may be a short phrase or a sentence fragment taken from a movie review, so judge only the sentiment it expresses. Output exactly one label, positive or negative, with no punctuation or commentary."
+40,B,random,random_049,0.91627,0.916,Label the mixed or bittersweet movie review as positive or negative. Answer with exactly one word: positive or negative.
+41,B,random,random_031,0.915822,0.916,"Given a short phrase or sentence fragment from a movie review, predict whether the sentiment is positive or negative. Answer with exactly one word: positive or negative."
+42,B,random,random_046,0.915754,0.916,"Given a movie review, determine if the overall sentiment is positive or negative. Answer with exactly one word: positive or negative."
+43,B,random,random_039,0.914828,0.915,"Classify the sentiment of the review, determining whether it is predominantly positive or negative, and provide the label as positive or negative. Answer with exactly one word: positive or negative."
+44,B,random,random_017,0.914778,0.915,Decide whether the sentiment in this movie review is positive or negative. Answer with exactly one word: positive or negative.
+45,B,random,random_023,0.914742,0.915,Is this movie review positive or negative? Answer with exactly one word: positive or negative.
+46,B,random,random_009,0.913848,0.914,"Give a sentiment score of 1 for positive and -1 for negative, where the score indicates the overall sentiment of the text, weighted by the prevalence of positive vs negative words. Answer with exactly one word: positive or negative."
+47,B,random,random_002,0.911829,0.912,"Please label each movie review as positive or negative, ignoring negation, sarcasm, and irony. Answer with exactly one word: positive or negative."
+48,B,random,random_019,0.911779,0.912,Is this movie review expressing a positive or negative sentiment towards the film? Answer with exactly one word: positive or negative.
+49,A,manual,baseline_recommend,0.909792,0.91,"Would the writer recommend this movie? If the text is favorable, answer positive; if it is unfavorable, answer negative. Respond with that single word and nothing else."
+50,B,random,random_038,0.909755,0.902,Highlight mixed or bittersweet reviews and classify sentiment as positive or negative. Answer with exactly one word: positive or negative.
+51,B,random,random_035,0.901934,0.902,"Based on the overall tone and sentiment expressed in this movie review, classify the sentiment as: positive or negative. Answer with exactly one word: positive or negative."
+52,B,random,random_015,0.897951,0.898,"Determine the sentiment of the text, labeling it as positive or negative, while considering negation, sarcasm, and irony. Answer with exactly one word: positive or negative."
+53,B,random,random_040,0.89594,0.896,"Please classify the sentiment of the movie review text as positive or negative, considering negation, sarcasm, and irony. Answer with exactly one word: positive or negative."
+54,B,random,random_025,0.893958,0.894,"Given a movie review, classify it as positive or negative, considering negation, sarcasm, and irony. Answer with exactly one word: positive or negative."
+55,A,manual,baseline_expert,0.893451,0.889,You are an expert film critic who reads reviews for a living. Decide whether the reviewer's overall opinion of the movie is positive or negative. Answer with only that one word.
+56,B,random,random_030,0.885989,0.886,"Determine the sentiment of the text as either positive or negative, considering negation, sarcasm, and irony. Answer with exactly one word: positive or negative."
+57,A,manual,baseline_negation,0.879439,0.879,"Be careful with negation, sarcasm and irony: a phrase such as 'not bad' or 'hardly a masterpiece' does not mean what its individual words suggest. Judge the intended sentiment of the whole text and answer with exactly one word: positive or negative."
+58,B,random,random_008,0.876312,0.875,"Identify the overall sentiment of the text by recognizing words like ""amazing"", ""fantastic"", ""great"", ""love"", ""excellent"" as positive indicators; conversely, look for words like ""terrible"", ""horrible"", ""poor"", ""disappointing"", ""boring"" as negative. Assess the tone and intensity of these words and phrases to determine the sentiment. Answer with exactly one word: positive or negative."
+59,B,random,random_044,0.875,0.875,Distinguish between genuine praise and polite or lukewarm criticism in the text and classify it as positive or negative. Answer with exactly one word: positive or negative.
+60,B,random,random_021,0.868984,0.869,"Please classify the sentiment of the following movie review as either positive or negative: 1. The movie was thoroughly engaging and captivating throughout. 2. The plot was weak and predictable, and the acting was poor. 3. The film lacked depth and failed to deliver a satisfying conclusion. 4. The visuals were uninspired and failed to impress. 5. The script was poorly written and lacked coherence. Answer with exactly one word: positive or negative."
+61,B,random,random_024,0.864401,0.864,"The classifier should prioritize the sentiment of the majority opinion in mixed reviews, labeling the review as positive or negative accordingly. Answer with exactly one word: positive or negative."
